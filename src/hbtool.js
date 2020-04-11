@@ -1,8 +1,10 @@
-const Yargs = require("yargs");
+const Yargs = require('yargs')
 
 Yargs(process.argv.slice(2), process.cwd())
   .version()
-  .commandDir("cmds")
+  .command(require('./cmds/db2csv'))
   .demandCommand()
   .help()
-  .parse();
+  .showHelpOnFail(true)
+  .wrap(Yargs.terminalWidth() !== null ? Yargs.terminalWidth() : 80)
+  .parse()
