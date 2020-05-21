@@ -7,8 +7,6 @@ const writeOutput = ({ output }, data) => {
 }
 
 exports.handler = async (argv) => {
-  console.log(argv)
-
   if (argv.mode === 'single') {
     throw new Error('Single mode is not yet implemented')
   }
