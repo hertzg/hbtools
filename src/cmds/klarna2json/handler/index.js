@@ -1,8 +1,11 @@
-const batch = require('./api/batch')
+const transactionResponses = require('./api/transactionResponses')
 const FS = require('fs')
 
-const writeOutput = ({ output }, data) => {
-  const contents = JSON.stringify(data)
+const writeOutput = ({ output }, responses) => {
+  const contents = JSON.stringify({
+    createdAt: (new Date).toISOString(),
+    responses
+  })
   FS.writeFileSync(output, contents, { encoding: 'utf8' })
 }
 
@@ -11,6 +14,6 @@ exports.handler = async (argv) => {
     throw new Error('Single mode is not yet implemented')
   }
 
-  const batches = await batch(argv)
-  writeOutput(argv, JSON.stringify(batches))
+  const batches = await transactionResponses(argv)
+  writeOutput(argv, batches)
 }
